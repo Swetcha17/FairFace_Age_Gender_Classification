@@ -1,28 +1,3 @@
-"""
-FairFace multi-task training (Gender + AgeGroup).
-
-Organize fairface data as:
-    Root/
-      ├── train/
-      ├── val/
-      ├── fairface_label_train.csv
-      └── fairface_label_val.csv
-
-We will:
-- Use the official "train" split for training.
-- Split the official "val" CSV 80:20 into validation:test.
-- Train a single shared backbone with two classification heads.
-
-Usage example:
-python train_age_gender.py \
-  --root openset2/dataset/fairface \
-  --train_csv fairface_label_train.csv \
-  --val_csv fairface_label_val.csv \
-  --epochs 20 --batch_size 128 --lr 3e-4 --backbone resnet50
-
-Switch backbones using: --backbone resnet50 | convnext_tiny | efficientnet_v2_s | vit_b_16
-"""
-
 import os, sys, argparse, json, random, math, time
 from dataclasses import dataclass
 from typing import List, Tuple, Optional, Dict
@@ -530,24 +505,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
-"""
-To run:
-
-ConvNeXt-Tiny
-python train_age_gender.py --root /home/jupyter-swt224/openset2/dataset/fairface \
-  --backbone convnext_tiny --epochs 20 --batch_size 128 --lr 3e-4 --out_dir runs/convnext_t
-
-EfficientNetV2-S
-python train_age_gender.py --root /home/jupyter-swt224/openset2/dataset/fairface \
-  --backbone efficientnet_v2_s --epochs 20 --batch_size 128 --lr 3e-4 --out_dir runs/effv2s
-
-ResNet-50 (baseline)
-python train_age_gender.py --root /home/jupyter-swt224/openset2/dataset/fairface \
-  --backbone resnet50 --epochs 20 --batch_size 128 --lr 3e-4 --out_dir runs/rn50
-
-ViT-B/16 
-python train_age_gender.py --root /home/jupyter-swt224/openset2/dataset/fairface \
-  --backbone vit_b_16 --epochs 20 --batch_size 64 --lr 3e-4 --out_dir runs/vit_b16
-  
-"""
